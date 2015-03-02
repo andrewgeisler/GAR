@@ -5,7 +5,7 @@
 Request data from Google Analytics API 
 }
 \description{
-This function compiles a Google Analytics API request, retrieves the results and outputs a dataframe. Input formats based on documented Google Analytic's Core Reporting API requirements. 
+This function compiles a Google Analytics API request, retrieves the results and outputs a dataframe. Input formats based on documented Google Analytic's Core Reporting API requirements. The function is designed to loop through the same request to multiple GA account ids. The result will still be one data frame. Additionally, the function attemps to output the error message if there is an issue.
 }
 \usage{
 gaRequest(
@@ -16,7 +16,7 @@ gaRequest(
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{id}{
-Required. Profile ID including the ga: prefix.
+Required. Profile ID including the ga: prefix. Can be a one or many.
 }
   \item{dimensions}{
 Required. Parameter can be a single dimension or a string of multiple dimensions separated by commas.
@@ -71,19 +71,22 @@ Andrew Geisler
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[GAR]{tokenRefresh}}
 \code{\link[GAR]{GAR}}
+\code{\link[GAR]{gaRequest}}
+\code{\link[GAR]{getCode}}
+\code{\link[GAR]{getRefresh}}
+\code{\link[GAR]{tokenRefresh}}
 }
 \examples{
 gaRequest(
-        id='ga:123456789', 
+        id=c('ga:123456789','ga:987654321'), 
         dimensions='ga:date,ga:month', 
         metrics='ga:sessions,ga:users,ga:pageviews', 
         start='YYYY-MM-DD',
         end='YYYY-MM-DDD',
         sort='-ga:sessions,ga:users',
         max='1000',
-        filters='ga:browser==VALUE,ga:city==VALUE'
+        filters='ga:browser==VALUE,ga:city==VALUE',
         token='abcdef'
         )
 }

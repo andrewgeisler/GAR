@@ -1,32 +1,27 @@
-\name{tokenRefresh}
-\alias{tokenRefresh}
+\name{getCode}
+\alias{getCode}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Retrieves a Google Analytics access token using a refresh token. 
+Authenticates a Google Analytics. 
 }
 \description{
-This function retrieves a Google Analytics access token using a supplied refresh token. Refresh tokens do not expire and can be traded for an access token repeatedly.  
+This function launches an URL in a broswer for authentication. Once authenticated, the value after code= appearing in the resulting URL needs to be manually copied and stored for later use. This code will allow you to get a refresh token that can be refreshed until revoked. This should be a one-time process unless code is revoked,lost or expires before used to get a refresh token.
+
 }
 \usage{
-tokenRefresh(client_id, client_secret, token)
+getCode(client_id)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{client_id}{
 Client ID found in API Console. String format.
 }
-  \item{client_secret}{
-Client Secret found in API Console. String format.
-}
-  \item{token}{
-Refresh token as originally generated manually. String format.
-}
 }
 \details{
-Function returns a GA access token.
+Function opens a webiste URL in a browser for authenication. A code can be retrieved from the redirect URL. 
 }
 \value{
-Access token is a string to be used in conjunction with gaRequest() function.
+Code is a string to be used in conjunction with gaRefresh() function.
 }
 \references{
 https://developers.google.com/analytics/devguides/reporting/core/v3/
@@ -48,11 +43,9 @@ Andrew Geisler
 \code{\link[GAR]{tokenRefresh}}
 }
 \examples{
-tokenRefresh(
-            client_id="ABCDEFG",
-            client_secret="HIJKLMNOP",
-            token="QRSTUVWX"
-            )
+getCode(
+        client_id="ABCDEFG"
+        )
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
