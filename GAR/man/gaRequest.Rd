@@ -9,17 +9,17 @@ This function compiles a Google Analytics API request, retrieves the results and
 }
 \usage{
 gaRequest(
-          id, dimensions, metrics, start, end, 
-          token, sort = NA, max = NA, filters = NA
+          id, dimensions = NA, metrics, start, end, 
+          token, sort = NA, max = NA, segment = NA, filters = NA
           )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{id}{
-Required. Profile ID including the ga: prefix. Can be a one or many.
+Required. Profile ID including the ga: prefix. Can be a more than one. See example below.
 }
   \item{dimensions}{
-Required. Parameter can be a single dimension or a string of multiple dimensions separated by commas.
+Not Required. Parameter can be a single dimension or a string of multiple dimensions separated by commas.
 }
   \item{metrics}{
 Required. Parameter can be a single metric or a string of multiple metrics separated by commas.
@@ -38,6 +38,9 @@ Not Required. Can be a single parameter or can be a string of multiple parameter
 }
   \item{max}{
 Not Required. Google Analytics default is 100 and their max is 10,000.
+}
+  \item{segment}{
+Not Required.
 }
   \item{filters}{
 Not Required. Can be a single parameter or can be a string of multiple parameters separated by commas.
@@ -87,6 +90,7 @@ gaRequest(
         sort='-ga:sessions,ga:users',
         max='1000',
         filters='ga:browser==VALUE,ga:city==VALUE',
+        segment='abcdef'
         token='abcdef'
         )
 }

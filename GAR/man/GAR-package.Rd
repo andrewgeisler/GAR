@@ -17,8 +17,8 @@ Once authenticated you will have an refresh token which can be repeated traded f
 \tabular{ll}{
 Package: \tab GAR\cr
 Type: \tab Package\cr
-Version: \tab 1.1\cr
-Date: \tab 2015-02-16\cr
+Version: \tab 1.2\cr
+Date: \tab 2015-03-10\cr
 License: \tab R Version 3.1\cr
 Depends: \tab httr, jsonlite \cr
 }
@@ -54,7 +54,7 @@ getRefresh(
             )
 
 gaRequest(
-        id='ga:123456789', 
+        id=c('ga:123456789','ga:987654321'), 
         dimensions='ga:date,ga:month', 
         metrics='ga:sessions,ga:users,ga:pageviews', 
         start='YYYY-MM-DD',
@@ -62,6 +62,7 @@ gaRequest(
         sort='-ga:sessions,ga:users',
         max='1000',
         filters='ga:browser==VALUE,ga:city==VALUE',
+        segment='abcdef'
         token='abcdef'
         )
 

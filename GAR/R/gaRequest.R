@@ -1,5 +1,5 @@
 gaRequest <-
-function(id, dimensions, metrics, start, end, token, sort=NA, max=NA, filters=NA) {
+function(id, dimensions=NA, metrics, start, end, token, sort=NA, max=NA, segment=NA, filters=NA) {
     
     ##CREATE LIST OF QUERY PARAMETERS
     queryList <- as.list(id)
@@ -13,6 +13,7 @@ function(id, dimensions, metrics, start, end, token, sort=NA, max=NA, filters=NA
         'sort'=sort,
         'max-results'=max,
         'filters'=filters,
+        'segment'=segment,
         'access_token'=token
       )
     }
