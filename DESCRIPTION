@@ -2,7 +2,7 @@ Package: GAR
 Type: Package
 Title: Authorize and Request Google Analytics data.
 Version: 1.0
-Date: 2015-03-01
+Date: 2015-03-13
 Author: Andrew Geisler
 Maintainer: Andrew Geisler <andrew.geisler@gmail.com>
 Description: This package is designed to aid in obtaining initial authentication with Google Analytics as well as simple and organized data retrieval from the API. 
