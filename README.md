@@ -3,10 +3,10 @@
 
 The package is designed to help easily retreive data from Google Analytics. 
 
-Use of the package assumes the user has a Google Analytics as well as an 'installed application' project in the Google API/Developer console. 
+Use of the package assumes the user has a Google Analytics accounts as well as an 'installed application' project in the Google API/Developer console. 
 
 
-Steps required before use:
+Set Up How To:
 * Create API project in Google console
   * Log into Google API/Developer console
   * console.developers.google.com
