@@ -5,6 +5,6 @@ Version: 1.0
 Date: 2015-03-13
 Author: Andrew Geisler
 Maintainer: Andrew Geisler <andrew.geisler@gmail.com>
-Description: This package is designed to aid in obtaining initial authentication with Google Analytics as well as simple and organized data retrieval from the API. 
+Description: This package is designed to aid in obtaining initial authentication with Google Analytics as well as simple and organized data retrieval from the API. Allows for retreival from multiple profiles at once.
 License: R 3.1.0
 Depends: httr, jsonlite
