@@ -1,1 +1,8 @@
-exportPattern("^[[:alpha:]]+")
+#exportPattern("^[[:alpha:]]+")
+
+#Export all names
+exportPattern(".")
+
+#IMPORT all packages listed as Imports or Depends
+
+import(httr,jsonlite)

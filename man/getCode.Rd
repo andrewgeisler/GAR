@@ -29,9 +29,7 @@ https://developers.google.com/analytics/devguides/reporting/core/v3/
 \author{
 Andrew Geisler
 }
-\note{
-%%  ~~further notes~~
-}
+
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
@@ -42,11 +40,8 @@ Andrew Geisler
 \code{\link[GAR]{getRefresh}}
 \code{\link[GAR]{tokenRefresh}}
 }
-\examples{
-getCode(
-        client_id="ABCDEFG"
-        )
-}
+
+
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }

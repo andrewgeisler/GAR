@@ -67,9 +67,6 @@ https://developers.google.com/analytics/devguides/reporting/core/v3/
 \author{
 Andrew Geisler
 }
-\note{
-%%  ~~further notes~~
-}
 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
@@ -79,20 +76,7 @@ Andrew Geisler
 \code{\link[GAR]{getCode}}
 \code{\link[GAR]{getRefresh}}
 \code{\link[GAR]{tokenRefresh}}
-}
-\examples{
-gaRequest(
-        id=c('ga:123456789','ga:987654321'), 
-        dimensions='ga:date,ga:month', 
-        metrics='ga:sessions,ga:users,ga:pageviews', 
-        start='YYYY-MM-DD',
-        end='YYYY-MM-DDD',
-        sort='-ga:sessions,ga:users',
-        max='1000',
-        filters='ga:browser==VALUE,ga:city==VALUE',
-        segment='abcdef'
-        token='abcdef'
-        )
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
