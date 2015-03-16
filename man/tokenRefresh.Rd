@@ -36,8 +36,6 @@ Andrew Geisler
 }
 
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
 \code{\link[GAR]{GAR}}
 \code{\link[GAR]{gaRequest}}
@@ -45,7 +43,15 @@ Andrew Geisler
 \code{\link[GAR]{getRefresh}}
 \code{\link[GAR]{tokenRefresh}}
 }
-
+\examples{
+\dontrun{
+tokenRefresh(
+            client_id="ABCDEFG",
+            client_secret="HIJKLMNOP",
+            token="QRSTUVWX"
+            )
+}
+}
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }

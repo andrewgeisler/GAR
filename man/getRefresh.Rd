@@ -35,9 +35,6 @@ https://developers.google.com/analytics/devguides/reporting/core/v3/
 Andrew Geisler
 }
 
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
 \code{\link[GAR]{GAR}}
 \code{\link[GAR]{gaRequest}}
@@ -45,8 +42,15 @@ Andrew Geisler
 \code{\link[GAR]{getRefresh}}
 \code{\link[GAR]{tokenRefresh}}
 }
+\examples{
+\dontrun{
+getRefresh(
+            client_id="ABCDEFG",
+            client_secret="HIJKLMNOP",
+            code="QRSTUVWX"
+            )
+}
+}
 
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ ~kwd1 }
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

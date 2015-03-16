@@ -68,17 +68,29 @@ https://developers.google.com/analytics/devguides/reporting/core/v3/
 Andrew Geisler
 }
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{
 \code{\link[GAR]{GAR}}
 \code{\link[GAR]{gaRequest}}
 \code{\link[GAR]{getCode}}
 \code{\link[GAR]{getRefresh}}
 \code{\link[GAR]{tokenRefresh}}
-
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
+\examples{
+\dontrun{
+gaRequest(
+        id=c('ga:123456789','ga:987654321'), 
+        dimensions='ga:date,ga:month', 
+        metrics='ga:sessions,ga:users,ga:pageviews', 
+        start='YYYY-MM-DD',
+        end='YYYY-MM-DDD',
+        sort='-ga:sessions,ga:users',
+        max='1000',
+        filters='ga:browser==VALUE,ga:city==VALUE',
+        segment='abcdef'
+        token='abcdef'
+        )
+}
+}
+
 \keyword{ ~kwd1 }
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
