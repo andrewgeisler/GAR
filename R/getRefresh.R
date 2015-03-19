@@ -1,6 +1,6 @@
 getRefresh <- 
 
-function(client_id=client_id, client_secret=client_secret, code=code){
+function(client_id=Sys.getenv('GAR_CLIENT_ID'), client_secret=Sys.getenv('GAR_CLIENT_SECRET'), code=code){
   
         ###POST TO GET REFRESH TOKEN
         rToken <- POST(

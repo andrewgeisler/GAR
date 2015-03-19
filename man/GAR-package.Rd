@@ -11,6 +11,9 @@ This package is designed to aid in obtaining initial authentication with Google 
 
 Once authenticated you will have an refresh token which can be repeated traded for an access token via the tokenRefresh() function. Once traded for an access token, data can be retreived used the gaRequest() function. 
 
+It is recommended to store the client id and client secret in the following system variables: GAR_CLIENT_ID, GAR_CLIENT_SECRET. The getCode(), getRefresh() and tokenRefresh() functions will reference these variables by default. It is also recommended to store the refresh token retreived by getRefresh() in a GA_REFRESH_TOKEN system variable. The tokenRefresh() function will refer to GA_REFRESH_TOKEN by default. 
+
+Additionally, a package environment (envGAR) is created on load and will store the access token produced by tokenRefresh() for use within the session.
 
 }
 \details{
@@ -42,7 +45,7 @@ https://developers.google.com/analytics/devguides/reporting/core/v3/
 \code{\link[GAR]{tokenRefresh}}
 }
 \examples{
-\dontrun{
+
 
 getCode(
         client_id="ABCDEFG"
@@ -63,7 +66,7 @@ gaRequest(
         sort='-ga:sessions,ga:users',
         max='1000',
         filters='ga:browser==VALUE,ga:city==VALUE',
-        segment='abcdef'
+        segment='abcdef',
         token='abcdef'
         )
 
@@ -72,5 +75,5 @@ tokenRefresh(
             client_secret="HIJKLMNOP",
             token="QRSTUVWX"
             )
-}
+
 }

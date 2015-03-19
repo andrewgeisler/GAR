@@ -5,7 +5,7 @@
 Retrieves a Google Analytics refresh token using a pre-retrieved and authenciated code. A refresh token can be used to repeating obtain a new access token without additional manual authentication.
 }
 \description{
-This function retrieves a Google Analytics refresh token using a supplied credentials and code. A refresh token can be traded for an access token repeatedly. As a result, this should only be needed one time unless the refresh token is revoked or lost. 
+This function retrieves a Google Analytics refresh token using a supplied credentials and code. The function will use GAR_CLIENT_ID, GAR_CLIENT_SECRET environmental variables if present. A refresh token can be traded for an access token repeatedly. As a result, this should only be needed one time unless the refresh token is revoked or lost. The refresh token is stored in an 'GAR_REFRESH_TOKEN' environmental variable.
 }
 \usage{
  getRefresh(client_id, client_secret, code)
@@ -43,14 +43,12 @@ Andrew Geisler
 \code{\link[GAR]{tokenRefresh}}
 }
 \examples{
-\dontrun{
+
 getRefresh(
             client_id="ABCDEFG",
             client_secret="HIJKLMNOP",
             code="QRSTUVWX"
             )
 }
-}
 
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+

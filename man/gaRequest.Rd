@@ -5,7 +5,7 @@
 Request data from Google Analytics API 
 }
 \description{
-This function compiles a Google Analytics API request, retrieves the results and outputs a dataframe. Input formats based on documented Google Analytic's Core Reporting API requirements. The function is designed to loop through the same request to multiple GA account ids. The result will still be one data frame. Additionally, the function attemps to output the error message if there is an issue.
+This function compiles a Google Analytics API request, retrieves the results and outputs a dataframe. Input formats based on documented Google Analytic's Core Reporting API requirements. The function is designed to loop through the same request to multiple GA account ids. The result will still be one data frame. Additionally, the function attemps to output the error message if there is an issue. By default, the function will use the GAR_ACCESS_TOKEN variable set by the tokenRefresh() function. However, a supplied token value will take priority over stored variabled.
 }
 \usage{
 gaRequest(
@@ -31,7 +31,7 @@ Required. Start date formated as a string (YYYY-MM-DD).
 Required. End date formated as a string (YYYY-MM-DD).
 }
   \item{token}{
-Required.
+Required. 
 }
   \item{sort}{
 Not Required. Can be a single parameter or can be a string of multiple parameters separated by commas.
@@ -76,7 +76,7 @@ Andrew Geisler
 \code{\link[GAR]{tokenRefresh}}
 }
 \examples{
-\dontrun{
+
 gaRequest(
         id=c('ga:123456789','ga:987654321'), 
         dimensions='ga:date,ga:month', 
@@ -86,11 +86,8 @@ gaRequest(
         sort='-ga:sessions,ga:users',
         max='1000',
         filters='ga:browser==VALUE,ga:city==VALUE',
-        segment='abcdef'
+        segment='abcdef',
         token='abcdef'
         )
 }
-}
 
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

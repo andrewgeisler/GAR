@@ -5,7 +5,7 @@
 Retrieves a Google Analytics access token using a refresh token. 
 }
 \description{
-This function retrieves a Google Analytics access token using a supplied refresh token. Refresh tokens do not expire and can be traded for an access token repeatedly.  
+This function retrieves a Google Analytics access token using a supplied refresh token. Refresh tokens do not expire and can be traded for an access token repeatedly. The function will pull from the following environmental variables by default: GAR_CLIENT_ID, GAR_CLIENT_SECRET, GAR_REFRESH_TOKEN. Additionally, a temporary variable (GAR_ACCESS_TOKEN) will be stored in a package specific environment (envGAR) containing the newly generated access token for use in the getRequest() function. 
 }
 \usage{
 tokenRefresh(client_id, client_secret, token)
@@ -44,15 +44,11 @@ Andrew Geisler
 \code{\link[GAR]{tokenRefresh}}
 }
 \examples{
-\dontrun{
+
 tokenRefresh(
             client_id="ABCDEFG",
             client_secret="HIJKLMNOP",
             token="QRSTUVWX"
             )
+
 }
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

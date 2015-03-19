@@ -1,5 +1,5 @@
 tokenRefresh <-
-function(client_id, client_secret, token) {
+function(client_id=Sys.getenv('GAR_CLIENT_ID'), client_secret=Sys.getenv('GAR_CLIENT_SECRET'), token=Sys.getenv('GAR_REFRESH_TOKEN')) {
                 response <- POST(
                                 "https://accounts.google.com/o/oauth2/token",
                                 body = list(
@@ -12,5 +12,8 @@ function(client_id, client_secret, token) {
                                 )
                 response <- content(response)
                 accessToken <- response$access_token
+                assign('GAR_ACCESS_TOKEN', accessToken, envir=envGAR)
                 return(accessToken)
                 }
+
+

@@ -1,3 +1,8 @@
+.onLoad <- function(libname, pkgname) {
+  assign("envGAR", new.env(), envir=parent.env(environment()))
+}
+
+
 .Random.seed <-
 c(403L, 10L, -1179742357L, -266348279L, -1297264744L, 1556051654L, 
 -1826962399L, -1486778189L, 794839586L, 524438548L, -426663785L, 

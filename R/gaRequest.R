@@ -1,6 +1,16 @@
 gaRequest <-
-function(id, dimensions=NA, metrics, start, end, token, sort=NA, max=NA, segment=NA, filters=NA) {
+function(id, dimensions=NA, metrics, start, end, token=NA, sort=NA, max=NA, segment=NA, filters=NA) {
     
+  ##PRIORITIZES SUPPLIED TOKEN FIRST. THEN CHECKS FOR ENV VARIABLE, THEN DEFAULTS TO NA.
+  if (!is.na(token)){
+    token <- token
+  } else if (exists('GAR_ACCESS_TOKEN', envir=envGAR)){
+    token <- get('GAR_ACCESS_TOKEN', envir=envGAR)
+  } else {
+    token <- token
+  }
+  
+  
     ##CREATE LIST OF QUERY PARAMETERS
     queryList <- as.list(id)
     for (x in 1:length(id)) { 

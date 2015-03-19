@@ -5,7 +5,7 @@
 Authenticates a Google Analytics. 
 }
 \description{
-This function launches an URL in a broswer for authentication. Once authenticated, the value after code= appearing in the resulting URL needs to be manually copied and stored for later use. This code will allow you to get a refresh token that can be refreshed until revoked. This should be a one-time process unless code is revoked,lost or expires before used to get a refresh token.
+This function launches an URL in a broswer for authentication. Once authenticated, the value after code= appearing in the resulting URL needs to be manually copied and stored for later use. This code will allow you to get a refresh token that can be refreshed until revoked. This should be a one-time process unless code is revoked,lost or expires before used to get a refresh token. If exists, the environmental variable GAR_CLIENT_ID will be used by default.
 
 }
 \usage{
@@ -38,12 +38,9 @@ Andrew Geisler
 \code{\link[GAR]{tokenRefresh}}
 }
 \examples{
-\dontrun{
+
 getCode(
         client_id="ABCDEFG"
         )
 }
-}
 
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
