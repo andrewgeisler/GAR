@@ -95,7 +95,7 @@ function(id, dimensions=NA, metrics, start, end, token=NA, sort=NA, max=1000, se
   
   
   ###CHECK FOR INITIAL ERRORS
-  if(TRUE %in% grepl('error', finalDf)){
+  if(TRUE %in% grepl('error', names(finalDf[[1]]) )){
     ##IF ERROR THEN DATA FRAME OF ERROR RESPONSE CODE AND MESSAGE
     
     finalDf <- list()
