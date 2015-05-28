@@ -98,12 +98,12 @@ function(id, dimensions=NA, metrics, start, end, token=NA, sort=NA, max=1000, se
   if(TRUE %in% grepl('error', names(finalDf[[1]]) )){
     ##IF ERROR THEN DATA FRAME OF ERROR RESPONSE CODE AND MESSAGE
     
-    finalDf <- list()
+    tmp <- list()
     for (x in 1: length(id)){
-      finalDf[x] <- list(data.frame(finalDf[[x]]))
+      tmp[x] <- list(data.frame(finalDf[[x]]))
     }
     
-    finalDf <- do.call('rbind',finalDf)
+    finalDf <- do.call('rbind',tmp)
     
   } else {
   
