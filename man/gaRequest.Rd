@@ -10,7 +10,7 @@ This function compiles a Google Analytics API request, retrieves the results and
 \usage{
 gaRequest(
           id, dimensions = NA, metrics, start, end, 
-          token, sort = NA, max = NA, segment = NA, filters = NA
+          token, sort = NA, max = NA, segment = NA, filters = NA, allResults=FALSE
           )
 }
 %- maybe also 'usage' for other objects documented here.
@@ -44,6 +44,9 @@ Not Required.
 }
   \item{filters}{
 Not Required. Can be a single parameter or can be a string of multiple parameters separated by commas.
+}
+  \item{allResults}{
+Logical. TRUE will cause the function to paginate through all results. Max also needs to be set to 10000. Warning, pagination could increase run time.
 }
 }
 \details{
@@ -87,6 +90,7 @@ gaRequest(
         max='1000',
         filters='ga:browser==VALUE,ga:city==VALUE',
         segment='abcdef',
+        allResults=FALSE,
         token='abcdef'
         )
 }
