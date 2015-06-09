@@ -67,7 +67,8 @@ gaRequest(
         max='1000',
         filters='ga:browser==VALUE,ga:city==VALUE',
         segment='abcdef',
-        token='abcdef'
+        token='abcdef',
+        allResults=FALSE
         )
 
 tokenRefresh(

@@ -10,7 +10,7 @@ This function compiles a Google Analytics API request, retrieves the results and
 \usage{
 gaRequest(
           id, dimensions = NA, metrics, start, end, 
-          token, sort = NA, max = NA, segment = NA, filters = NA, allResults=FALSE
+          token = NA, sort = NA, max = 1000, segment = NA, filters = NA, allResults=FALSE
           )
 }
 %- maybe also 'usage' for other objects documented here.
