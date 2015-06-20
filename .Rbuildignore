@@ -1,0 +1,9 @@
+Makefile
+README.md
+GAR-Tutorial
+GAR-download-tracking
+.Rbuildignore
+.Rhistory
+R/.Rhistory
+man/.Rhistory
+NEWS.md
