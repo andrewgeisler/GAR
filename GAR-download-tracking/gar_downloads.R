@@ -4,7 +4,7 @@ install_github('installr', 'talgalili')
 require(installr)
 
 
-RStudio_CRAN_data_folder <- download_RStudio_CRAN_data(START = '2015-03-20', END = Sys.Date()-1) # around the time R 3.0.0 was released
+RStudio_CRAN_data_folder <- download_RStudio_CRAN_data(START = '2015-07-28', END = Sys.Date()-1) # around the time R 3.0.0 was released
 
 my_RStudio_CRAN_data <- read_RStudio_CRAN_data(RStudio_CRAN_data_folder)
 
