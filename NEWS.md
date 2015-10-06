@@ -1,6 +1,6 @@
 # GAR 1.1.1
 
-* Adding function (getMeta) that retrieves a dimensions and metrics available for use in the Core Reporting API.
+* Added function (getMeta) that retrieves a dimensions and metrics available for use in the Core Reporting API.
 
 # GAR 1.1
 
