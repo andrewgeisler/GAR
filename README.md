@@ -23,3 +23,5 @@ Set Up How To:
 * Get Data
   * Always request an updated access token using the tokenRefresh() with the refresh token saved from before.
   * Use gaRequest() with the access token to retreive analytics data
+* Get Core Reporting Dimensions and Metrics 
+  * Use getMeta() to retrieve a list of dimensions and metrics availbe in the Core Reporting API.

@@ -25,7 +25,7 @@ Date: \tab 2015-03-10\cr
 License: \tab R Version 3.1\cr
 Depends: \tab httr, jsonlite \cr
 }
-Package includes four main functions: getCode(), getRefresh(), gaRequest() and tokenRefresh().
+Package includes four main functions: getCode(), getRefresh(), gaRequest(), getMeta() and tokenRefresh().
 }
 \author{
 Andrew Geisler
@@ -34,6 +34,7 @@ Maintainer: Andrew Geisler <andrew.geisler@gmail.com>
 }
 \references{
 https://developers.google.com/analytics/devguides/reporting/core/v3/
+https://developers.google.com/analytics/devguides/reporting/metadata/v3/
 }
 
 \keyword{ package }
@@ -43,6 +44,7 @@ https://developers.google.com/analytics/devguides/reporting/core/v3/
 \code{\link[GAR]{getCode}}
 \code{\link[GAR]{getRefresh}}
 \code{\link[GAR]{tokenRefresh}}
+\code{\link[GAR]{getMeta}}
 }
 \examples{
 
@@ -76,5 +78,9 @@ tokenRefresh(
             client_secret="HIJKLMNOP",
             token="QRSTUVWX"
             )
+
+getMeta()
+
+)
 
 }

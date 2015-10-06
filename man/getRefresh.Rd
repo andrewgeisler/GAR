@@ -41,6 +41,7 @@ Andrew Geisler
 \code{\link[GAR]{getCode}}
 \code{\link[GAR]{getRefresh}}
 \code{\link[GAR]{tokenRefresh}}
+\code{\link[GAR]{getMeta}}
 }
 \examples{
 
