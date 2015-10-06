@@ -4,36 +4,45 @@ function(id, dimensions=NA, metrics, start, end, token=NA, sort=NA, max=1000, se
   ##INTERNAL FUNCTION BUILD AND FETCH --------------------------------------------------------------------------------------------------------
   buildAndFetch <- function(q){
     ##BUILD QUERY AND FETCH RESULTS
-    r <- lapply(1:length(q), function(x) {
-                                          GET("https://www.googleapis.com/analytics/v3/data/ga", query = q[[x]])
-                                         })
+    r <-list()
+    for (x in 1:length(q)) {
+      r[[x]] <- GET("https://www.googleapis.com/analytics/v3/data/ga",
+                    query = q[[x]]
+      )
+    }
     
     #PARSE JSON RESPONSE FROM GA
-    r <- lapply(1:length(r), function(y) {
-                                          jsonlite::fromJSON(
-                                                            jsonlite::toJSON(content(r[[y]])),
-                                                            flatten=TRUE
-                                                            )
-                                          })
+    for (y in 1:length(r)) {
+      r[[y]] <- jsonlite::toJSON(content(r[[y]]))
+      r[[y]] <- jsonlite::fromJSON(r[[y]], flatten=TRUE)
+    }
     return(r)
   }
   
   ##INTERNAL FUNCTION LIST TO DF --------------------------------------------------------------------------------------------------------
   toDF <- function(r) {
     
-    df <- lapply(1:length(r),function(x) {
-                                      cbind(
-                                      data.frame(r[[x]]$profileInfo[c('profileId','accountId','webPropertyId','internalWebPropertyId','profileName','tableId')], stringsAsFactors = F),
-                                      data.frame(r[[x]]$query[c('start-date','end-date')], stringsAsFactors = F, check.names = F),
-                                      data.frame(r[[x]]['totalResults'], stringsAsFactors = F),
-                                      data.frame(
-                                                matrix(data=r[[x]]$rows, nrow=nrow(r[[x]]$rows), ncol=ncol(r[[x]]$rows), dimnames=list(1:nrow(r[[x]]$rows), unlist(r[[x]]$columnHeaders$name)))
-                                                , stringsAsFactors = F, check.names = F
-                                                )
-                                    )
-    })
+    df <- list()
+    for (x in 1:length(r)) {
+      df[x] <- list(cbind(
+        data.frame(r[[x]]$profileInfo, stringsAsFactors=FALSE),
+        data.frame(r[[x]]$query['start-date'], stringsAsFactors=FALSE),
+        data.frame(r[[x]]$query['end-date'], stringsAsFactors=FALSE),
+        data.frame(r[[x]]$totalResults, stringsAsFactors=FALSE),
+        data.frame(r[[x]]$rows, stringsAsFactors=FALSE)
+      ))
+    }
     
     df <- do.call('rbind', df)
+    
+    ##RENAME COLUMNS
+    colnames(df) <- c(
+      names(r[[1]]$profileInfo),
+      names(r[[1]]$query['start-date']),
+      names(r[[1]]$query['end-date']),
+      'totalResults',
+      unlist(r[[1]]$columnHeaders$name)
+    )
     
     #FORMAT METRIC DATA AS NUMERIC
     metricNames <- as.vector(r[[1]]$query$metrics)
@@ -59,26 +68,27 @@ function(id, dimensions=NA, metrics, start, end, token=NA, sort=NA, max=1000, se
   
   
   ##CREATE LIST OF INITIAL QUERY PARAMETERS --------------------------------------------------------------------------------------------------------
- 
-  queryList<-lapply(1:length(id), function(x) {
-                                                list(
-                                                  'ids'=id[x],
-                                                  'dimensions'=dimensions,
-                                                  'metrics'=metrics,
-                                                  'start-date'=if(length(start)>1) {start[x]} else start,
-                                                  'end-date'=if(length(end)>1) {start[x]} else end,
-                                                  'sort'=sort,
-                                                  'max-results'=max,
-                                                  'filters'=filters,
-                                                  'segment'=segment,
-                                                  'access_token'=token
-                                                )
-                                                }
-                                                )
-
+  queryList <- as.list(id)
+  for (x in 1:length(id)) { 
+    queryList[[x]] <- list(
+      'ids'=id[x],
+      'dimensions'=dimensions,
+      'metrics'=metrics,
+      'start-date'=start,
+      'end-date'=end,
+      'sort'=sort,
+      'max-results'=max,
+      'filters'=filters,
+      'segment'=segment,
+      'access_token'=token
+    )
+  }
     
   ##REMOVE ANY UNUSED PARAMETERS
-  queryList <- lapply(1: length(queryList), function (x) {queryList[[x]][!is.na(queryList[[x]])] })
+  for (x in 1:length(id)){
+    queryList[[x]] <- queryList[[x]][!is.na(queryList[[x]])]
+  }
+    
   
   ##BUILD AND FETCH INITIAL QUERY --------------------------------------------------------------------------------------------------------
   finalDf <- buildAndFetch(queryList)
