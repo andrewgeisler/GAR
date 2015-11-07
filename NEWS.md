@@ -1,6 +1,8 @@
 # GAR 1.2
 
 * Added function (getMeta) that retrieves a dimensions and metrics available for use in the Core Reporting API.
+* Added containsSampledData to gaRequest results data.frame.
+* Fixed bug where gaRequest would fail when totalResults equaled zero.
 
 # GAR 1.1
 

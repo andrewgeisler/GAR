@@ -28,10 +28,15 @@ function(id, dimensions=NA, metrics, start, end, token=NA, sort=NA, max=1000, se
         data.frame(r[[x]]$profileInfo, stringsAsFactors=FALSE),
         data.frame(r[[x]]$query['start-date'], stringsAsFactors=FALSE),
         data.frame(r[[x]]$query['end-date'], stringsAsFactors=FALSE),
+        data.frame(r[[x]]$containsSampledData, stringsAsFactors=FALSE),
         data.frame(r[[x]]$totalResults, stringsAsFactors=FALSE),
-        data.frame(r[[x]]$rows, stringsAsFactors=FALSE)
-      ))
-    }
+        if (r[[x]]$totalResults==0) {
+                                    data.frame(matrix(nrow=1,ncol= length(r[[1]]$columnHeaders$name) ))
+                                    } else {
+                                    data.frame(r[[x]]$rows, stringsAsFactors=FALSE)
+                                    }
+        ))
+        }
     
     df <- do.call('rbind', df)
     
@@ -40,6 +45,7 @@ function(id, dimensions=NA, metrics, start, end, token=NA, sort=NA, max=1000, se
       names(r[[1]]$profileInfo),
       names(r[[1]]$query['start-date']),
       names(r[[1]]$query['end-date']),
+      'containsSampledData',
       'totalResults',
       unlist(r[[1]]$columnHeaders$name)
     )
