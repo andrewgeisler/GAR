@@ -47,10 +47,10 @@ gaRequest <-
       finalDf <- toDF(finalDf)
       
       ##CREATE LIST OF PAGINATION QUERY PARAMETERS --------------------------------------------------------------------------------------------------------
-      if (allResults==TRUE & max==10000) {
+      if (allResults==TRUE & as.numeric(max)==10000) {
         
         totalResults <- aggregate(data=finalDf, totalResults~tableId, FUN=mean)
-        totalResults$pages <- floor(totalResults$totalResults/max)
+        totalResults$pages <- floor(totalResults$totalResults/as.numeric(max))
         
         totalResults <- lapply(totalResults$tableId, function(x) {
           data.frame(
@@ -61,7 +61,7 @@ gaRequest <-
         })
         
         totalResults <- do.call('rbind', totalResults)
-        totalResults$start_index <- (totalResults$pages*max)+1
+        totalResults$start_index <- (totalResults$pages*as.numeric(max))+1
         totalResults <- totalResults[!is.na(totalResults$pages) & totalResults$pages>0,]
         
         
