@@ -47,7 +47,7 @@ gaRequest <-
       finalDf <- toDF(finalDf)
       
       ##CREATE LIST OF PAGINATION QUERY PARAMETERS --------------------------------------------------------------------------------------------------------
-      if (allResults==TRUE & as.numeric(max)==10000) {
+      if (allResults==TRUE & as.numeric(max)==10000 & finalDf$totalResults[1]>10000) {
         
         totalResults <- aggregate(data=finalDf, totalResults~tableId, FUN=mean)
         totalResults$pages <- floor(totalResults$totalResults/as.numeric(max))
