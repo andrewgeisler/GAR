@@ -1,6 +1,7 @@
 gaRequest <- function(id, dimensions = NA, metrics, start, end, token = NA, 
                       sort = NA, max = 1000, segment = NA, filters = NA, 
-                      allResults = FALSE, samplingLevel='DEFAULT') {
+                      allResults = FALSE, samplingLevel='DEFAULT',
+                      includeEmptyRows=TRUE) {
   
   ## PRIORITIZES SUPPLIED TOKEN FIRST. 
   ## THEN CHECKS FOR ENV VARIABLE.
@@ -14,11 +15,10 @@ gaRequest <- function(id, dimensions = NA, metrics, start, end, token = NA,
     token <- token
   }
   
-  ## CREATE LIST OF INITIAL QUERY PARAMETERS
-  ## --------------------------------------------------------------------------------------------------------
+  ## CREATE LIST OF INITIAL QUERY PARAMETERS -----------------------------------
   
   queryList <- buildQuery(id, dimensions, metrics, start, end, token, sort, max, 
-    segment, filters, samplingLevel)
+    segment, filters, samplingLevel, includeEmptyRows)
   
   ## BUILD AND FETCH INITIAL QUERY
   ## --------------------------------------------------------------------------------------------------------

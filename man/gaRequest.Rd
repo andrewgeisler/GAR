@@ -52,6 +52,9 @@ Logical. TRUE will cause the function to paginate through all results. Max also 
   \item{samplingLevel}{
 Accepted values are DEFAULT, FASTER, or HIGHER_PRECISION.
 }
+  \item{includeEmptyRows}{
+Logical.
+}
 }
 \details{
 The function returns a dataframe.
@@ -97,7 +100,8 @@ gaRequest(
         segment='abcdef',
         allResults=FALSE,
         token='abcdef',
-        samplingLevel='FASTER'
+        samplingLevel='FASTER',
+        includeEmptyRows=FALSE,
         )
 }
 
