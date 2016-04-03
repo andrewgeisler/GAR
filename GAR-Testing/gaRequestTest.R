@@ -69,7 +69,7 @@ test1Simple <- gaRequestTest(
                               start='2015-01-01',
                               end='2015-11-10',
                               sort='-ga:sessions,ga:users',
-                              max='1000',
+                              max=1000,
                               filters='ga:browser==Chrome,ga:city==Nashville',
                               segment='gaid::-3',
                               allResults=FALSE,
@@ -99,7 +99,7 @@ test2MultipleIds <- gaRequestTest(
     start='2015-01-01',
     end='2015-11-10',
     sort='-ga:sessions,ga:users',
-    max='1000',
+    max=1000,
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
@@ -128,7 +128,7 @@ test3MultipeIdsAndDates <- gaRequestTest(
     start=c('2015-01-01','2015-02-01'),
     end=c('2015-11-10','2015-10-31'),
     sort='-ga:sessions,ga:users',
-    max='1000',
+    max=1000,
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
@@ -157,7 +157,7 @@ test4PaginateAndMultipleIdsAndDates <- gaRequestTest(
     start=c('2014-07-01','2014-07-01'),
     end=c('2015-11-10','2015-10-31'),
     sort='-ga:sessions,ga:users',
-    max='10000',
+    max=1000,
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=TRUE,
@@ -184,7 +184,7 @@ test5BadDates <- gaRequestTest(
     start='2015-1-01',
     end='2015-11-10',
     sort='-ga:sessions,ga:users',
-    max='1000',
+    max=1000,
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
@@ -213,7 +213,7 @@ test6BadParms <- gaRequestTest(
     start='2015-10-01',
     end='2015-11-10',
     sort='-ga:sessions,ga:users',
-    max='1000',
+    max=1000,
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
@@ -241,7 +241,7 @@ test7BadMetrics <- gaRequestTest(
     start='2015-10-01',
     end='2015-11-10',
     sort='-ga:sessions,ga:users',
-    max='1000',
+    max=1000,
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
@@ -268,7 +268,7 @@ test8BadDateParmMetrics <- gaRequestTest(
     start='2015-0-01',
     end='2015-11-10',
     sort='-ga:sessions,ga:users',
-    max='1000',
+    max=1000,
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
@@ -296,7 +296,7 @@ test9OneIdBadDates <- gaRequestTest(
     start=c('2015-01-01','2015-2-01'),
     end=c('2015-11-10','2015-10-31'),
     sort='-ga:sessions,ga:users',
-    max='1000',
+    max=1000,
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
@@ -324,7 +324,7 @@ test10TwoIdsBadDates <- gaRequestTest(
     start=c('2015-01-01','2015-2-01'),
     end=c('2015-1-10','2015-10-31'),
     sort='-ga:sessions,ga:users',
-    max='1000',
+    max=1000,
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
@@ -353,7 +353,7 @@ test11TwoIdsBadParms <- gaRequestTest(
     start=c('2015-01-01','2015-02-01'),
     end=c('2015-11-10','2015-10-31'),
     sort='-ga:sessions,ga:users',
-    max='1000',
+    max=1000,
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
@@ -381,7 +381,7 @@ test12TwoIdsBadMetrics <- gaRequestTest(
     start=c('2015-01-01','2015-02-01'),
     end=c('2015-11-10','2015-10-31'),
     sort='-ga:sessions,ga:users',
-    max='1000',
+    max=1000,
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
@@ -409,7 +409,7 @@ test13TwoIdsBadDatesParmsMetrics <- gaRequestTest(
     start=c('2015-1-01','2015-02-01'),
     end=c('2015-11-10','205-10-31'),
     sort='-ga:sessions,ga:users',
-    max='1000',
+    max=1000,
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
@@ -436,10 +436,63 @@ test14pageLogicLess10K <- gaRequestTest(
     start=c('2015-01-01','2015-02-01'),
     end=c('2015-11-10','2015-10-31'),
     sort='-ga:sessions,ga:users',
-    max='10000',
+    max=1000,
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=TRUE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
+    token=GAR::tokenRefresh()
+  ),
+  
+  testResults=list(
+    noError=TRUE,
+    Error=FALSE,
+    idsOne=FALSE,
+    idsMany=TRUE
+  )
+)
+
+
+
+test15MetsAndDimsAsVectors <- gaRequestTest(
+  parms=list(
+    id=c(idOne, idTwo), 
+    dimensions=c('ga:date','ga:month'), 
+    metrics=c('ga:sessions','ga:users','ga:pageviews'), 
+    start='2015-01-01',
+    end='2015-11-10',
+    sort=c('-ga:sessions','ga:users'),
+    max=1000,
+    filters='ga:browser==Chrome,ga:city==Nashville',
+    segment='gaid::-3',
+    allResults=FALSE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
+    token=GAR::tokenRefresh()
+  ),
+  
+  testResults=list(
+    noError=TRUE,
+    Error=FALSE,
+    idsOne=FALSE,
+    idsMany=TRUE
+  )
+)
+
+
+test16gaPrefix <- gaRequestTest(
+  parms=list(
+    id=c(idOne, idTwo), 
+    dimensions=c('date','month'), 
+    metrics=c('sessions','ga:users','ga:pageviews'), 
+    start='2015-01-01',
+    end='2015-11-10',
+    sort=c('-sessions','ga:users'),
+    max=1000,
+    filters='ga:browser==Chrome,ga:city==Nashville',
+    segment='gaid::-3',
+    allResults=FALSE,
     samplingLevel='FASTER',
     includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
