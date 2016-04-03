@@ -1,3 +1,8 @@
+# GAR DEV
+
+* Added additional arguments (samplingLevel,includeEmptyRows) to gaRequest function.  
+
+
 # GAR 1.2
 
 * Added function (getMeta) that retrieves a dimensions and metrics available for use in the Core Reporting API.
