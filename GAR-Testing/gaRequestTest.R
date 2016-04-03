@@ -1,6 +1,9 @@
 #require(devtools)
 #install_github('andrewgeisler/GAR', ref='master')
-require(GAR)
+#require(GAR)
+
+require(httr)
+require(jsonlite)
 
 ##### FUNCTION TEST
 gaRequestTest <- function(parms, testResults) {
@@ -16,7 +19,9 @@ gaRequestTest <- function(parms, testResults) {
     filters=parms$filters,
     segment=parms$segment,
     allResults=parms$allResults,
-    token=parms$token
+    token=parms$token,
+    samplingLevel=parms$samplingLevel,
+    includeEmptyRows=parms$includeEmptyRows
     )
   
 
@@ -68,6 +73,8 @@ test1Simple <- gaRequestTest(
                               filters='ga:browser==Chrome,ga:city==Nashville',
                               segment='gaid::-3',
                               allResults=FALSE,
+                              samplingLevel='FASTER',
+                              includeEmptyRows=FALSE,
                               token=GAR::tokenRefresh()
                             ),
 
@@ -96,6 +103,8 @@ test2MultipleIds <- gaRequestTest(
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
   ),
   
@@ -123,6 +132,8 @@ test3MultipeIdsAndDates <- gaRequestTest(
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
   ),
   
@@ -150,6 +161,8 @@ test4PaginateAndMultipleIdsAndDates <- gaRequestTest(
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=TRUE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
   ),
   
@@ -175,6 +188,8 @@ test5BadDates <- gaRequestTest(
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
   ),
   
@@ -202,6 +217,8 @@ test6BadParms <- gaRequestTest(
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
   ),
   
@@ -228,6 +245,8 @@ test7BadMetrics <- gaRequestTest(
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
   ),
   
@@ -253,6 +272,8 @@ test8BadDateParmMetrics <- gaRequestTest(
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
   ),
   
@@ -279,6 +300,8 @@ test9OneIdBadDates <- gaRequestTest(
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
   ),
   
@@ -305,6 +328,8 @@ test10TwoIdsBadDates <- gaRequestTest(
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
   ),
   
@@ -332,6 +357,8 @@ test11TwoIdsBadParms <- gaRequestTest(
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
   ),
   
@@ -358,6 +385,8 @@ test12TwoIdsBadMetrics <- gaRequestTest(
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
   ),
   
@@ -384,6 +413,8 @@ test13TwoIdsBadDatesParmsMetrics <- gaRequestTest(
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=FALSE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
   ),
   
@@ -409,6 +440,8 @@ test14pageLogicLess10K <- gaRequestTest(
     filters='ga:browser==Chrome,ga:city==Nashville',
     segment='gaid::-3',
     allResults=TRUE,
+    samplingLevel='FASTER',
+    includeEmptyRows=FALSE,
     token=GAR::tokenRefresh()
   ),
   
