@@ -3,9 +3,9 @@ gaRequest <- function(id, dimensions = NA, metrics, start, end, token = NA,
                       allResults = FALSE, samplingLevel='DEFAULT',
                       includeEmptyRows=TRUE) {
   
-  ## PRIORITIZES SUPPLIED TOKEN FIRST. 
+  ## PRIORITIZES SUPPLIED TOKEN FIRST. -----------------------------------------
   ## THEN CHECKS FOR ENV VARIABLE.
-  ## THEN DEFAULTS TO NA. -----------------------------------------------------
+  ## THEN DEFAULTS TO NA.
   
   if (!is.na(token)) {
     token <- token
@@ -15,17 +15,42 @@ gaRequest <- function(id, dimensions = NA, metrics, start, end, token = NA,
     token <- token
   }
   
+  ## VALIDATE PARAMETERS -------------------------------------------------------
+  validatedResults <- validateArgs(dimensions, metrics, start, end, token, sort, 
+                                   max, segment, filters, allResults, samplingLevel, 
+                                   includeEmptyRows)
+  
+  if(validatedResults$validated==FALSE) {
+    warning(
+      paste('Invalid argument(s):',
+            names(validatedResults$inValidArguments)
+            )
+    )
+  }
+  
+  ## ADD GA PREFIX SUPPLIED ARGUMENTS ------------------------------------------
+  id <- gaPrefix(id)
+  
+  dimensions <- gaPrefix(dimensions)
+  dimensions <- paste0(dimensions, collapse=',')
+  
+  metrics <- gaPrefix(metrics)
+  metrics <- paste0(metrics, collapse=',')
+  
+  sort <- gaPrefix(sort)
+  sort <- paste0(sort, collapse=',')
+  
   ## CREATE LIST OF INITIAL QUERY PARAMETERS -----------------------------------
   
   queryList <- buildQuery(id, dimensions, metrics, start, end, token, sort, max, 
     segment, filters, samplingLevel, includeEmptyRows)
   
-  ## BUILD AND FETCH INITIAL QUERY
-  ## --------------------------------------------------------------------------------------------------------
+  
+  ## BUILD AND FETCH INITIAL QUERY ---------------------------------------------
   finalDf <- buildAndFetch(queryList)
   
-  ### ERROR CHECK
-  ### --------------------------------------------------------------------------------------------------------
+  
+  ### ERROR CHECK --------------------------------------------------------------
   
   errors <- errorCheck(finalDf)
   
@@ -50,30 +75,30 @@ gaRequest <- function(id, dimensions = NA, metrics, start, end, token = NA,
     
   } else {
     
-    ### BUILD DATA FRAME OF RESULTS
-    ### ----------------------------------------------------------------------------------------------------------------
+    ### BUILD DATA FRAME OF RESULTS --------------------------------------------
     
     finalDf <- toDF(finalDf)
     
-    ## CREATE LIST OF PAGINATION QUERY PARAMETERS
-    ## --------------------------------------------------------------------------------------------------------
-    if (allResults == TRUE & as.numeric(max) == 10000 & finalDf$totalResults[1] > 
-      10000) {
+    ## CREATE LIST OF PAGINATION QUERY PARAMETER -------------------------------
+    
+    if (allResults == TRUE & as.numeric(max) == 10000 & finalDf$totalResults[1] > 10000) {
       
       totalResults <- aggregate(data = finalDf, totalResults ~ tableId, FUN = mean)
       totalResults$pages <- floor(totalResults$totalResults/as.numeric(max))
       
-      totalResults <- lapply(totalResults$tableId, function(x) {
-        data.frame(profileId = totalResults$tableId[totalResults$tableId == 
-          x], pages = 0:totalResults$pages[totalResults$tableId == x], stringsAsFactors = FALSE, 
-          row.names = NULL)
-      })
+      totalResults <- lapply(totalResults$tableId, function(x) { 
+        data.frame(
+          profileId = totalResults$tableId[totalResults$tableId == x], 
+          pages = 0:totalResults$pages[totalResults$tableId == x], 
+          stringsAsFactors = FALSE, 
+          row.names = NULL
+        )
+      }
+      )
       
       totalResults <- do.call("rbind", totalResults)
-      totalResults$start_index <- (totalResults$pages * as.numeric(max)) + 
-        1
-      totalResults <- totalResults[!is.na(totalResults$pages) & totalResults$pages > 
-        0, ]
+      totalResults$start_index <- (totalResults$pages * as.numeric(max)) + 1
+      totalResults <- totalResults[!is.na(totalResults$pages) & totalResults$pages > 0, ]
       
       
       queryListPaginate <- lapply(totalResults$profileId, function(x) {
@@ -84,8 +109,8 @@ gaRequest <- function(id, dimensions = NA, metrics, start, end, token = NA,
         queryListPaginate[[i]]$`start-index` <- totalResults$start_index[i]
       }
       
-      ## BUILD AND FETCH INITIAL QUERY
-      ## --------------------------------------------------------------------------------------------------------
+      ## BUILD AND FETCH INITIAL QUERY -----------------------------------------
+      
       paginateDf <- buildAndFetch(queryListPaginate)
       paginateDf <- toDF(paginateDf)
       
