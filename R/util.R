@@ -149,12 +149,12 @@ toDF <- function(x) {
 validateArgs <- function(dimensions, metrics, start, end, token, sort, max, 
                          segment, filters, allResults, samplingLevel, includeEmptyRows) {
   validate <- list(
-    dimensions = is.na(dimensions) | class(dimensions) == 'character',
-    metrics = class(metrics) == 'character',
+    dimensions = all(is.na(dimensions) | class(dimensions) == 'character'),
+    metrics = all(class(metrics) == 'character'),
     start = all(grepl('[0-9]{4}-[0-9]{2}-[0-9]{2}|today|yesterday|[0-9]+(daysAgo)',start)),
     end = all(grepl('[0-9]{4}-[0-9]{2}-[0-9]{2}|today|yesterday|[0-9]+(daysAgo)',end)),
     token = is.na(token) | class(token) == 'character',
-    sort = is.na(sort) | class(sort) == 'character',
+    sort = all(is.na(sort) | class(sort) == 'character'),
     max = is.numeric(max),
     filters = is.na(filters) | class(filters) == 'character',
     segment = is.na(segment) | class(segment) == 'character',
