@@ -1,6 +1,6 @@
 ##INTERNAL FUNCTION TO BUILD QUERY LIST --------------------------------------------------------------------------------------------------------
 
-buildQuery <- function(id, dimensions, metrics, start, end, token, sort, max, segment, filters) 
+buildQuery <- function(id, dimensions, metrics, start, end, token, sort, max, segment, filters, samplingLevel) 
 {
   q <- lapply( id, function(x) {
     list(
@@ -13,7 +13,8 @@ buildQuery <- function(id, dimensions, metrics, start, end, token, sort, max, se
       'max-results'   = max,
       'filters'       = filters,
       'segment'       = segment,
-      'access_token'  = token
+      'access_token'  = token,
+      'samplingLevel' = samplingLevel
     )
   }
   )
