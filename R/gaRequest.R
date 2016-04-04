@@ -31,15 +31,24 @@ gaRequest <- function(id, dimensions = NA, metrics, start, end, token = NA,
   ## ADD GA PREFIX SUPPLIED ARGUMENTS ------------------------------------------
   id <- gaPrefix(id)
   
-  dimensions <- gaPrefix(dimensions)
-  dimensions <- ifelse(is.na(dimensions), dimensions, paste0(dimensions, collapse=','))
+  if(is.na(dimensions)) {
+    dimensions <- dimensions
+  } else {
+    dimensions <- gaPrefix(dimensions)
+    dimensions <- paste0(dimensions, collapse=',')
+  }
   
   metrics <- gaPrefix(metrics)
   metrics <- paste0(metrics, collapse=',')
   
-  sort <- gaPrefix(sort)
-  sort <- ifelse(is.na(sort), sort, paste0(sort, collapse=','))
+  if(is.na(sort)) {
+    sort <- sort
+  } else {
+    sort <- gaPrefix(sort)
+    sort <- paste0(sort, collapse=',')
+  }
   
+
   ## CREATE LIST OF INITIAL QUERY PARAMETERS -----------------------------------
   
   queryList <- buildQuery(id, dimensions, metrics, start, end, token, sort, max, 
