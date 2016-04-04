@@ -32,13 +32,13 @@ gaRequest <- function(id, dimensions = NA, metrics, start, end, token = NA,
   id <- gaPrefix(id)
   
   dimensions <- gaPrefix(dimensions)
-  dimensions <- paste0(dimensions, collapse=',')
+  dimensions <- ifelse(is.na(dimensions), dimensions, paste0(dimensions, collapse=','))
   
   metrics <- gaPrefix(metrics)
   metrics <- paste0(metrics, collapse=',')
   
   sort <- gaPrefix(sort)
-  sort <- paste0(sort, collapse=',')
+  sort <- ifelse(is.na(sort), sort, paste0(sort, collapse=','))
   
   ## CREATE LIST OF INITIAL QUERY PARAMETERS -----------------------------------
   
