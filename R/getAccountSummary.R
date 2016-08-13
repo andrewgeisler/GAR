@@ -1,5 +1,4 @@
 getAccountSummary <- function(token) {
-  
   ## BUILD AND REQUEST DATA
   baseUrl <- 'https://www.googleapis.com/analytics/v3'
   type <- '/management/accountSummaries'
@@ -26,10 +25,10 @@ getAccountSummary <- function(token) {
             propertyName = results[[i]]$webProperties[[x]]$name,
             propertyId = results[[i]]$webProperties[[x]]$id,
             propertyUrl = ifelse(
-                                !is.null(results[[i]]$webProperties[[x]]$websiteUrl),
-                                results[[i]]$webProperties[[x]]$websiteUrl,
-                                'NA'
-                              ),
+              !is.null(results[[i]]$webProperties[[x]]$websiteUrl),
+              results[[i]]$webProperties[[x]]$websiteUrl,
+              'NA'
+            ),
             profileName = results[[i]]$webProperties[[x]]$profiles[[y]]$name,
             profileId = results[[i]]$webProperties[[x]]$profiles[[y]]$id,
             profileType = results[[i]]$webProperties[[x]]$profiles[[y]]$type,
