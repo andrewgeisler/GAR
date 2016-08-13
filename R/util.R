@@ -1,6 +1,7 @@
-##INTERNAL FUNCTION TO BUILD QUERY LIST --------------------------------------------------------------------------------------------------------
+##INTERNAL FUNCTION TO BUILD QUERY LIST ----------------------------------------
 
-buildQuery <- function(id, dimensions, metrics, start, end, token, sort, max, segment, filters) 
+buildQuery <- function(id, dimensions, metrics, start, end, token, sort, max, 
+                       segment, filters, samplingLevel, includeEmptyRows) 
 {
   q <- lapply( id, function(x) {
     list(
@@ -13,7 +14,9 @@ buildQuery <- function(id, dimensions, metrics, start, end, token, sort, max, se
       'max-results'   = max,
       'filters'       = filters,
       'segment'       = segment,
-      'access_token'  = token
+      'access_token'  = token,
+      'samplingLevel' = samplingLevel,
+      'include_empty_rows' = includeEmptyRows
     )
   }
   )
@@ -25,10 +28,14 @@ buildQuery <- function(id, dimensions, metrics, start, end, token, sort, max, se
   return(q)
 }
 
-##INTERNAL FUNCTION BUILD AND FETCH --------------------------------------------------------------------------------------------------------
+##INTERNAL FUNCTION BUILD AND FETCH --------------------------------------------
 buildAndFetch <- function(q){
   ##BUILD QUERY AND FETCH RESULTS
-  r <- lapply(q, function(x) { GET("https://www.googleapis.com/analytics/v3/data/ga", query = x) } )
+  r <- lapply(q, function(x) { 
+    GET("https://www.googleapis.com/analytics/v3/data/ga", 
+        query = x) 
+  }
+  )
   
   #PARSE JSON RESPONSE FROM GA
   r <- lapply( r, function(x) { 
@@ -42,7 +49,7 @@ buildAndFetch <- function(q){
 }
 
 
-## INTERNAL FUNCTION BUILD DF OF QUERY DETAILS --------------------------------------------------------------------------------------------------------
+## INTERNAL FUNCTION BUILD DF OF QUERY DETAILS ---------------------------------
 requestDetails <- function(x) {
   df <- data.frame(
     'profileId'             = x$profileInfo$profileId,
@@ -60,7 +67,7 @@ requestDetails <- function(x) {
   return(df)
 }
 
-## INTERNAL FUNCTION BUILD DF OF QUERY ROW RESULTS --------------------------------------------------------------------------------------------------------
+## INTERNAL FUNCTION BUILD DF OF QUERY ROW RESULTS ----------------------------_
 
 requestResults <- function(x) {
   if(x$totalResults==0) {
@@ -81,7 +88,7 @@ requestResults <- function(x) {
 }
 
 
-##INTERNAL FUNCTION ERROR CHECK RESULTS --------------------------------------------------------------------------------------------------------
+##INTERNAL FUNCTION ERROR CHECK RESULTS ----------------------------------------
 
 errorCheck <- function(x) {
   
@@ -117,7 +124,7 @@ errorCheck <- function(x) {
   
 }
 
-##INTERNAL FUNCTION LIST TO DF --------------------------------------------------------------------------------------------------------
+##INTERNAL FUNCTION LIST TO DF -------------------------------------------------
 
 toDF <- function(x) {
   
@@ -135,4 +142,75 @@ toDF <- function(x) {
   colnames(df) <- gsub('ga:','',colnames(df))
   
   return(df)
+}
+
+
+## INTERNAL FUNCTION TO VALIDATE ARGUMENTS USED IN GAREQUEST -------------------
+validateArgs <- function(dimensions, metrics, start, end, token, sort, max, 
+                         segment, filters, allResults, samplingLevel, includeEmptyRows) {
+  validate <- list(
+    dimensions = all(is.na(dimensions) | class(dimensions) == 'character'),
+    metrics = all(class(metrics) == 'character'),
+    start = all(grepl('[0-9]{4}-[0-9]{2}-[0-9]{2}|today|yesterday|[0-9]+(daysAgo)',start)),
+    end = all(grepl('[0-9]{4}-[0-9]{2}-[0-9]{2}|today|yesterday|[0-9]+(daysAgo)',end)),
+    token = is.na(token) | class(token) == 'character',
+    sort = all(is.na(sort) | class(sort) == 'character'),
+    max = is.numeric(max),
+    filters = is.na(filters) | class(filters) == 'character',
+    segment = is.na(segment) | class(segment) == 'character',
+    allResults = is.logical(allResults),
+    samplingLevel = class(samplingLevel) == 'character',
+    includeEmptyRows = is.logical(includeEmptyRows)
+  )
+  
+  results <- list(
+    validated = all(validate==TRUE),
+    data = validate,
+    inValidArguments=validate[validate==FALSE]  
+  )
+  
+  return(results)
+  
+}
+
+## INTERNAL FUNCTION TO ADD GA PREFIX TO METRICS, DIMS, SORT, FILTERS. ---------
+
+gaPrefix <- function(parm) {
+  
+  if(class(parm)=='logical') {
+    
+    parm <- parm
+    
+  } else {
+    
+    ## SPLIT STRINGS
+    if(length(parm)==1) {
+      parm <- strsplit(parm,',')[[1]]
+    } else {
+      parm <- parm
+    } 
+    
+    ## ADD ASC OR DESC TO PRESERVE SORT ORDER
+    names(parm) <- ifelse(grepl('-',parm),'DESC','ASC')
+    
+    ## REMOVE SORT ORDER
+    parm <- gsub('-','', parm)
+    
+    ## ADD "GA" PREFIX
+    parm <- sapply(parm, function(x) 
+      
+      if(grepl('ga:',x)) { 
+        return(x) 
+      } else { 
+        paste('ga',x,sep=':') 
+      } 
+    )
+    
+    ## ADD SORT ORDER BACK TO ITEM
+    
+    desc <- grep('DESC',names(parm))
+    parm[desc] <-  paste0('-',parm[desc])
+  
+  }
+  return(parm)
 }

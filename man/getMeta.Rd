@@ -6,7 +6,6 @@ Access Google's Metadata API
 }
 \description{
 This function retrieves a data frame of dimensions and metrics available to use in the Core Reporting API along with descriptions and usage information.
-
 }
 \usage{
 getMeta()
@@ -19,23 +18,21 @@ No arguments required.
 The function returns a dataframe.
 }
 \value{
-\item{id}
-\item{kind}
-\item{type}
-\item{dataType}
-\item{group}
-\item{status}
-\item{uiName}
-\item{description}
-\item{allowedinSegments}
-\item{replaceBy}
-\item{calculation}
-\item{minTemplateIndex}
-\item{maxTemplateIndex}
-\item{premiumMinTemplateIndex}
-\item{premiumMaxTemplateIndex}
-
-
+  \item{id}{}
+  \item{kind}{}
+  \item{type}{}
+  \item{dataType}{}
+  \item{group}{}
+  \item{status}{}
+  \item{uiName}{}
+  \item{description}{}
+  \item{allowedinSegments}{}
+  \item{replaceBy}{}
+  \item{calculation}{}
+  \item{minTemplateIndex}{}
+  \item{maxTemplateIndex}{}
+  \item{premiumMinTemplateIndex}{}
+  \item{premiumMaxTemplateIndex}{}
 }
 \references{
 https://developers.google.com/analytics/devguides/reporting/metadata/v3/
@@ -43,7 +40,6 @@ https://developers.google.com/analytics/devguides/reporting/metadata/v3/
 \author{
 Andrew Geisler
 }
-
 \seealso{
 \code{\link[GAR]{GAR}}
 \code{\link[GAR]{gaRequest}}
@@ -53,8 +49,5 @@ Andrew Geisler
 \code{\link[GAR]{getMeta}}
 }
 \examples{
-
 getMeta()
-
 }
-

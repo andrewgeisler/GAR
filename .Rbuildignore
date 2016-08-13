@@ -1,6 +1,7 @@
 Makefile
 README.md
 GAR-Tutorial
+GAR-Testing
 GAR-download-tracking
 .Rbuildignore
 .Rhistory
