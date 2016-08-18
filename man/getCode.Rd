@@ -5,17 +5,16 @@
 Authenticates a Google Analytics. 
 }
 \description{
-This function launches an URL in a broswer for authentication. Once authenticated, the value after code= appearing in the resulting URL needs to be manually copied and stored for later use. This code will allow you to get a refresh token that can be refreshed until revoked. This should be a one-time process unless code is revoked,lost or expires before used to get a refresh token. If exists, the environmental variable GAR_CLIENT_ID will be used by default.
+This function launches an URL in a broswer for authentication. Once authenticated, the value after code= appearing in the resulting URL needs to be manually copied and stored for later use. This code will allow you to get a refresh token that can be refreshed until revoked. This should be a one-time process unless code is revoked,lost or expires before used to get a refresh token. If exists, the environmental variable GAR_CLIENT_ID will be used by default. An optional scope param can be used to adjust access permissions.
 
 }
 \usage{
-getCode(client_id)
+getCode(client_id, scope)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{client_id}{
-Client ID found in API Console. String format.
-}
+  \item{client_id}{Client ID found in API Console. String format.}
+  \item{scope}{Optional. Scope can analytics(default, analytics.readonly, analytics.edit, analytics.manage.users, or analytics.manage.users.readonly}
 }
 \details{
 Function opens a webiste URL in a browser for authenication. A code can be retrieved from the redirect URL. 
@@ -41,7 +40,8 @@ Andrew Geisler
 \examples{
 
 getCode(
-        client_id="ABCDEFG"
-        )
+  client_id="ABCDEFG",
+  scope='analytics'
+)
 }
 
