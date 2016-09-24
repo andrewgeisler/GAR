@@ -83,10 +83,10 @@ Andrew Geisler
 
 \seealso{
 \code{\link[GAR]{GAR}}
-\code{\link[GAR]{gaRequest}}
 \code{\link[GAR]{getCode}}
 \code{\link[GAR]{getRefresh}}
 \code{\link[GAR]{tokenRefresh}}
+\code{\link[GAR]{gaRequest}}
 \code{\link[GAR]{getMeta}}
 }
 \examples{

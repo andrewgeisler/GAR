@@ -34,11 +34,16 @@ Andrew Geisler
 
 \seealso{
 \code{\link[GAR]{GAR}}
-\code{\link[GAR]{gaRequest}}
 \code{\link[GAR]{getCode}}
 \code{\link[GAR]{getRefresh}}
 \code{\link[GAR]{tokenRefresh}}
-\code{\link[GAR]{getMeta}}
+\code{\link[GAR]{getAccountSummary}}
+\code{\link[GAR]{getFilterLinks}}
+\code{\link[GAR]{getFilters}}
+\code{\link[GAR]{getGoals}}
+\code{\link[GAR]{getProfiles}}
+\code{\link[GAR]{getWebProperty}}
+\code{\link[GAR]{getSegments}}
 }
 \examples{
 
